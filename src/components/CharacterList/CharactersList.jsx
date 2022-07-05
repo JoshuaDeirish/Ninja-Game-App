@@ -1,35 +1,30 @@
 import React from "react";
 import { CharacterListItem } from './CharacterListItem/CharacterListitem';
-const Characters = [
-    {
-        name: 'Naruto', 
-        health: 150, 
-        faction: 'leaf', 
-        weapon: 'Rasengan', 
-        dph: 80
-    },
-    {
-        name: 'Sasuke', 
-        health: 145, 
-        faction: 'hawk', 
-        weapon: 'Chidori', 
-        dph: 75
-    },
-    {
-        name: 'Itachi', 
-        health: 130, 
-        faction: 'Akatski', 
-        weapon: 'Amaturasu', 
-        dph: 80
-    },
-  ];
+import { Table, TableCaption, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
+import "./CharacterList.css";
 
-export const CharacterList = () => {
+
+export const CharacterList = ({ characters }) => {
     return (
-        <ul>
-        {Characters.map((character) => (
-        <CharacterListItem isChampion={Math.random() > 0.5} character={character} />
-      ))}
-    </ul>
-    )
-}
+        <Table>
+        <TableCaption>Character table</TableCaption>
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th isNumeric>Health</Th>
+            <Th>Fraction</Th>
+            <Th>Weapon</Th>
+            <Th isNumeric>Damage Per Hit</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {characters.map((character) => (
+            <CharacterListItem
+              isNinja={Math.random() > 0.5}
+              character={character}
+            />
+          ))}
+        </Tbody>
+      </Table>
+    );
+  };

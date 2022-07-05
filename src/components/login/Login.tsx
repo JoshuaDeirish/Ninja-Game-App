@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Input, Flex, Text, Button } from "@chakra-ui/react";
 
 const adminCredentials = { userName: "admin", password: "admin" };
+
 interface LoginProps {
   setLoggedIn: (isLoggedIn: boolean) => void;
 }
@@ -15,11 +17,20 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   
+  const countRef = useRef(0);
+
+  const inputRef = useRef<HTMLInputElement>(null);
   //When we type something in an input, onchange event is triggered
   //To get the value of the input, we use event.target.value
   //You can create even handlers two ways: using an anonymous function
   // or using a named function
+  useEffect(() => {
+    if (inputRef.current)
+    inputRef.current.focus();
+  }, []);
   const usernameHandler = (event: any) => {
+    countRef.current++
+    console.log("Count", countRef.current);
     setUserName(event.target.value);
   };
 
@@ -35,16 +46,31 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
   };
   
   return (
-    <div>
-      <label>User name: </label>
-      <input type="text" value={userName} onChange={usernameHandler} />
-      <label>Password: </label>
-      <input
+    <Flex justify={"center"} direction="column" align={"center"}>
+      <Text size={"lg"} mb="1%">
+        User name:{" "}
+        </Text>
+      <Input 
+        mb="2%"
+        ref={inputRef} 
+        type="text" 
+        value={userName} 
+        width="50%"
+        onChange={usernameHandler} 
+      />
+      <Text size={"lg"} mb="1%">
+        Password:{" "}
+        </Text>
+      <Input
+        mb="2%"
         type="password"
         value={password}
+        width="50%"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={loginHandler}>Login</button>
-    </div>
+      <Button colorScheme={"red"} onClick={loginHandler}>
+        Login
+        </Button>
+    </Flex>
   );
 };

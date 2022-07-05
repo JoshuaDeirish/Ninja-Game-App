@@ -1,19 +1,22 @@
-import React from "react"
-import './CharacterListItem.css'
+import React from "react";
+import './CharacterListItem.css';
+import { Td, Tr } from "@chakra-ui/react";
 
-export const CharacterListItem = ({Characters, isChampion}) => {
-    const {name, health, faction, weapon, dph} = Characters;
+export const CharacterListItem = ({ character, isChamp }) => {
+    const { name, health, faction, weapon, dph } = character;
    // console.log('Props', props)
     return (
-        <ul>
-            <li key={name}>
-            <span className="Character-Name">{isChampion ? `Champion ${name}` : name}</span>
-            <span>{health}</span>
-            <span>{faction}</span>
-            <span>{weapon}</span>
-            <span>{dph}</span>
-            </li>
-        </ul>
+        
+        <Tr key={name}>
+            <Td className="character-Name">
+                {isChamp ? `Champ ${name}` : name}
+                </Td>
+            <Td isNumeric>{health}</Td>
+            <Td>{faction}</Td>
+            <Td>{weapon}</Td>
+            <Td isNumeric>{dph}</Td>
+        </Tr>
+        
     );
 }
     
