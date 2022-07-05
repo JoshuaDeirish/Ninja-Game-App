@@ -37,6 +37,13 @@ export const App = () => {
         weapon: '7 Gate', 
         dph: 70
     },
+    {
+        name: 'Pain', 
+        health: 145, 
+        faction: 'Akatski', 
+        weapon: 'Almighty Push', 
+        dph: 90
+    },
   ];
 
   const { response, error } = useFetch(
