@@ -1,36 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Input, Flex, Text, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-const adminCredentials = { userName: "admin", password: "admin" };
+const adminCredentials = { 
+  userName: "admin", 
+  password: "admin" 
+};
 
 interface LoginProps {
   setLoggedIn: (isLoggedIn: boolean) => void;
 }
-//In React we have two main types of components: stateless and stateful
-//1. User types his login and password and clicks login button
-//2. If the login password combination is correct, the user is redirected to the character list
-export const Login = ({ setLoggedIn }: LoginProps) => {
-  //Rule 1: we never update the state directly, we always use setState
-  //Rule 2: when state changes, the component re-renders
-  //Rule 3: setState is asynchronous, it doesn't block the execution of the code
-  //UseState returns an array with two elements: state and the function to update it
+export const LoginScreen = ({ setLoggedIn }: LoginProps) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  
   const countRef = useRef(0);
-
   const inputRef = useRef<HTMLInputElement>(null);
-  //When we type something in an input, onchange event is triggered
-  //To get the value of the input, we use event.target.value
-  //You can create even handlers two ways: using an anonymous function
-  // or using a named function
+  const navigate = useNavigate();
+
+ 
   useEffect(() => {
     if (inputRef.current)
     inputRef.current.focus();
   }, []);
   const usernameHandler = (event: any) => {
     countRef.current++
-    console.log("Count", countRef.current);
     setUserName(event.target.value);
   };
 
@@ -38,9 +31,11 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
     if (
       userName === adminCredentials.userName &&
       password === adminCredentials.password
-    ) {
+    ){
       setLoggedIn(true);
-    }else {
+      navigate("/characters");
+    }
+    else {
       setLoggedIn(false);
     }
   };
@@ -70,7 +65,7 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
       />
       <Button colorScheme={"red"} onClick={loginHandler}>
         Login
-        </Button>
+      </Button>
     </Flex>
   );
 };
