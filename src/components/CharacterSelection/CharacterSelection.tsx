@@ -2,12 +2,17 @@ import React from "react";
 import { Text, Checkbox, CheckboxGroup, Stack, Flex, Button, Alert, AlertIcon } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setBattleCharacters } from "../../slices/charactersSlice";
 
 
-export const CharacterSelection = ({ characters, setBattleCharacters, }) => {
+export const CharacterSelection = () => {
+  const characters = useSelector((state: any) => state.characters.characterList);
+  const dispatch = useDispatch();
   const [ninjaSelected, setNinjaSelected] = useState<Array<string>>([]);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
   const navigate = useNavigate();
+
 
   const onNinjaChanged = (event) => {
     const ninja = event.target.value
@@ -24,9 +29,9 @@ export const CharacterSelection = ({ characters, setBattleCharacters, }) => {
       return;
     }
     setIsAlertVisible(false);
-    setBattleCharacters(
+    dispatch(setBattleCharacters(
       characters.filter((character) => ninjaSelected.includes(character.name))
-    );
+    ));
     navigate("/battleground")
   };
 

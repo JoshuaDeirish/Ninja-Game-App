@@ -4,9 +4,7 @@ import { CharacterList } from "../components/CharacterList/CharactersList";
 import { useNavigate } from "react-router-dom";
 
 export const CharactersScreen = ({
-  characters,
-  isLoggedIn,
-  setBattleCharacters,
+  isLoggedIn
 }) => {
   const navigate = useNavigate();
   if (!isLoggedIn) {
@@ -14,10 +12,8 @@ export const CharactersScreen = ({
   }
   return (
     <>
-      <CharacterList characters={characters} />
+      <CharacterList />
       <CharacterSelection
-        characters={characters}
-        setBattleCharacters={setBattleCharacters}
       />
     </>
   );

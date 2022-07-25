@@ -2,9 +2,11 @@ import React from "react";
 import { CharacterListItem } from './CharacterListItem/CharacterListitem';
 import { Table, TableCaption, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
 import "./CharacterList.css";
+import { useSelector } from "react-redux";
 
 
-export const CharacterList = ({ characters }) => {
+export const CharacterList = () => {
+  const characters = useSelector((state) => state.characters.characterList);
     return (
         <Table>
         <TableCaption>Character table</TableCaption>
