@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Input, Flex, Text, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../slices/loginSlice";
 
 const adminCredentials = { 
   userName: "admin", 
@@ -10,12 +12,13 @@ const adminCredentials = {
 interface LoginProps {
   setLoggedIn: (isLoggedIn: boolean) => void;
 }
-export const LoginScreen = ({ setLoggedIn }: LoginProps) => {
+export const LoginScreen = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const countRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
  
   useEffect(() => {
@@ -32,11 +35,11 @@ export const LoginScreen = ({ setLoggedIn }: LoginProps) => {
       userName === adminCredentials.userName &&
       password === adminCredentials.password
     ){
-      setLoggedIn(true);
+      dispatch(setIsLoggedIn(true));
       navigate("/characters");
     }
     else {
-      setLoggedIn(false);
+      dispatch(setIsLoggedIn(false));
     }
   };
   

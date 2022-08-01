@@ -1,8 +1,11 @@
 import React from "react";
 import { Text, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-export const WinnerScreen = ({winner, isLoggedIn}) => {
+import { useSelector } from "react-redux";
+export const WinnerScreen = ({winner}) => {
     const navigate = useNavigate();
+    const isLoggedIn = useSelector((store: any) => store.login.isLoggedIn)
+
     if(!isLoggedIn){
         navigate("/");
     }
